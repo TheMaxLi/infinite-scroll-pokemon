@@ -1,0 +1,19 @@
+Hello Andrew, I went about this problem using Typescript like you said. 
+
+I wanted to just start a server using express because that makes things easier to test as I have more experience in it,
+but honestly it's not needed since its just a SPA with no backend routes.
+
+To start, I created a variable called "offset" to help me record page state.
+
+Then, with a fetchPokemons function, I get the response from the api with the offsets applied and return it, ensuring I declare correct types and handle any errors 
+
+With the fetchPokemons response, I make a displayPokemon function that uses a makeCard function. The makeCard function is really there just for code readibility sakes.
+
+The displayPokemon function takes in the pokemons responce and makes a card for each pokemon in the selected element of id pokemon-list 
+
+Then, with a loadPokemons function to tie everything together, i get the responce from fetchPokemons, put that into displayPokemons, and add to the offset by 20 to enable the next batch of pokemons
+
+Finally, I add an event listener to the document listening for load completion of the DOM, once its loaded, I loadPokemons.
+Then, attatching an event listener inside of the first event listener to ensure that I only listen for scrolling when DOM is done loading. In that listener, I look for scrolling until the end and loadPokemons
+
+I did encounter a bug where if I scroll too fast, the loadPokemons function would be called many times before the offset changes. So to fix that, I created a new global variable for the last offset so I can compare them when I scroll to ensure I only call the api once per offset.
